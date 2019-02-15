@@ -1,4 +1,4 @@
-import app from '../../app';
+import app from '../../../app';
 import HttpCodes from 'http-status-codes';
 
 describe('root routes', () => {

@@ -6,7 +6,7 @@ import errorHandler from './utils/error-handler';
 import config from './config';
 
 import { setSharedSchemas } from './web/controllers/common';
-import { rootRoutes } from './web/routes';
+import { rootRoutes, freefitRoutes } from './web/routes';
 
 const app = Fastify({
   logger
@@ -23,5 +23,6 @@ app.setErrorHandler(errorHandler);
 
 // Register routes
 app.register(rootRoutes);
+app.register(freefitRoutes, { prefix: '/api/v1' });
 
 export default app;
