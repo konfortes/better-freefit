@@ -1,3 +1,7 @@
+import { Scraper } from './../../services/scraper';
+import { Freefit } from './../../services/freefit';
+const config = require('../../config');
+
 export const citiesSchema = {
   response: {
     200: {
@@ -21,8 +25,10 @@ export const citiesSchema = {
 };
 
 export const citiesHandler = async (request, reply) => {
+  const freefit = new Freefit(new Scraper(config.get('freefit.baseUrl')));
+  const cities = await freefit.getCities();
   return {
-    data: {}
+    data: { cities }
   };
 };
 
