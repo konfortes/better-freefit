@@ -59,8 +59,12 @@ export const clubsSchema = {
 };
 
 export const clubsHandler = async (request, reply) => {
+  const freefit = new Freefit(new Scraper(config.get('freefit.baseUrl')));
+  const { city } = request.params;
+  const clubs = await freefit.getClubs(city);
+
   return {
-    data: {}
+    data: { clubs }
   };
 };
 

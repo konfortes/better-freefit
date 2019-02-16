@@ -29,8 +29,8 @@ const config = convict({
       format: 'url',
       default: 'https://freefit.co.il'
     },
-    clubsPath: {
-      doc: 'freefit clubs list path',
+    citiesPath: {
+      doc: 'freefit cities list path',
       format: String,
       default: '/Pages/ClubList/'
     }
