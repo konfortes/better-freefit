@@ -16,10 +16,10 @@ export class ClubsIndexer {
 
   private async persistClubs(clubs: string[], city: string) {
     for (const club of clubs) {
-      const isExists = await this.dataStore.isClubExists(club, city);
-      if (isExists) {
-        continue;
-      }
+      // const isExists = await this.dataStore.isClubExists(club, city);
+      // if (isExists) {
+      //   continue;
+      // }
 
       await this.dataStore.saveClub(club, city);
     }

@@ -1,3 +1,5 @@
+import dbConnection from '../database';
+
 export interface IFreefitDataStore {
   isClubExists: (club: string, city: string) => Promise<boolean>;
   saveCity: (city: string) => Promise<any>;
@@ -5,17 +7,42 @@ export interface IFreefitDataStore {
 }
 
 export class FreefitDataStore implements IFreefitDataStore {
-  public isClubExists(club: string, city: string): Promise<boolean> {
-    return Promise.resolve(false);
+  public async isClubExists(club: string, city: string): Promise<boolean> {
+    const connection = await dbConnection;
+    const count = await connection
+      .createQueryBuilder()
+      .select()
+      .from('clubs', 'clubs')
+      .where('name = :club AND city = :city', { club, city })
+      .getMany();
+
+    return count.length > 0;
   }
 
-  public saveCity(city: string): Promise<any> {
+  public async saveCity(city: string): Promise<any> {
+    const connection = await dbConnection;
     console.log('saving city: ' + city);
-    return Promise.resolve();
+    await connection
+      .createQueryBuilder()
+      .insert()
+      .into('cities')
+      .values({
+        name: city
+      })
+      .execute();
   }
 
-  public saveClub(club: string, city: string): Promise<any> {
+  public async saveClub(club: string, city: string): Promise<any> {
+    const connection = await dbConnection;
     console.log('saving club: ' + club + 'of city: ' + city);
-    return Promise.resolve();
+    await connection
+      .createQueryBuilder()
+      .insert()
+      .into('clubs')
+      .values({
+        name: club,
+        city
+      })
+      .execute();
   }
 }

@@ -2,7 +2,7 @@ import { ClubsIndexer } from '../clubs';
 import { FreefitDataStore } from '../../freefit-data-store';
 import { Freefit } from '../../freefit';
 import { Scraper } from '../../scraper';
-const config = require('../../config');
+const config = require('../../../config');
 
 (async () => {
   const scraper = new Scraper(config.get('freefit.baseUrl'));
