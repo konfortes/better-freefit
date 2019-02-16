@@ -15,7 +15,9 @@
     "lint": "eslint src/**/*.ts",
     "test": "NODE_ENV=test jest --runInBand --verbose --color --coverage --detectOpenHandles",
     "test:watch": "NODE_ENV=test jest --runInBand --verbose --color --detectOpenHandles --watchAll --forceExit",
-    "routes": "ts-node ./scripts/list-routes.ts"
+    "routes": "ts-node ./scripts/list-routes.ts",
+    "index:clubs": "",
+    "clubs:location": ""
   },
   "repository": {
     "type": "git",

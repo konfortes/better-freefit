@@ -2,6 +2,11 @@ import { IScraper } from './scraper';
 const config = require('../config');
 import querystring from 'querystring';
 
+export interface IFreefit {
+  getCities: () => Promise<string[]>;
+  getClubs: (city: string) => Promise<string[]>;
+}
+
 export class Freefit {
   constructor(private scraper: IScraper) {}
 
