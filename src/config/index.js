@@ -32,7 +32,7 @@ const config = convict({
     citiesPath: {
       doc: 'freefit cities list path',
       format: String,
-      default: '/Pages/ClubList/'
+      default: '/Pages/ClubList'
     }
   }
 });

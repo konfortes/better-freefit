@@ -1,7 +1,7 @@
 const config = require('../../config');
 import { Scraper } from '../scraper';
 import nock from 'nock';
-import { clubs } from './fixtures';
+import { cities, clubs } from './fixtures';
 
 describe('Scraper', () => {
   afterAll(() => {
@@ -24,10 +24,10 @@ describe('Scraper', () => {
       expect(scope.isDone()).toBe(true);
     });
 
-    it('scrapes correctly', async () => {
+    it('scrapes cities correctly', async () => {
       nock(baseUrl)
         .get(citiesPath)
-        .reply(200, clubs);
+        .reply(200, cities);
 
       const selector = ['option', '#ddlArea'];
       const result = await scraper.scrape(citiesPath, selector);
@@ -36,6 +36,17 @@ describe('Scraper', () => {
       expect(result).toContain('אופקים');
       expect(result).toContain('אזור');
       expect(result).toContain('אילת');
+    });
+
+    it('scrapes clubs correctly', async () => {
+      nock(baseUrl)
+        .get(citiesPath)
+        .reply(200, clubs);
+
+      const selector = '#clubList table tr>td:nth-child(3)';
+      const result = await scraper.scrape(citiesPath, selector);
+      expect(result).toContain('מצנחי הים האדום- אילת');
+      expect(result).toContain('מתחם הפיטנס של אילת');
     });
   });
 });
