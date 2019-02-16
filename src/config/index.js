@@ -1,3 +1,4 @@
+var fs = require('fs');
 const path = require('path');
 const convict = require('convict');
 require('dotenv').config();
@@ -34,12 +35,43 @@ const config = convict({
       format: String,
       default: '/Pages/ClubList'
     }
+  },
+  database: {
+    type: 'postgres',
+    host: {
+      default: 'localhost',
+      env: 'POSTGRES_HOST'
+    },
+    port: {
+      default: 5432,
+      env: 'POSTGRES_PORT'
+    },
+    username: {
+      default: 'postgres',
+      env: 'POSTGRES_USERNAME'
+    },
+    password: {
+      default: 'postgres',
+      env: 'POSTGRES_PASSWORD'
+    },
+    database: {
+      default: 'freefit',
+      env: 'POSTGRES_DATABASE'
+    },
+    synchronize: false,
+    logging: false,
+    logger: 'advanced-console',
+    migrations: ['./dist/database/migrations/*.js'],
+    migrationsRun: true,
+    cli: {
+      migrationsDir: './dist/database/migrations'
+    }
   }
 });
 
-// Load test env configuration
-if (config.get('env') === 'test') {
-  config.loadFile(path.join(__dirname, 'test.json'));
+const filePath = path.join(__dirname, `${config.get('env')}.json`);
+if (fs.existsSync(filePath)) {
+  config.loadFile(filePath);
 }
 
 config.validate({

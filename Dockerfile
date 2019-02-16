@@ -4,6 +4,10 @@ FROM node:10.13 as build
 # Set NODE_ENV to development for build
 ENV NODE_ENV development
 
+# Install the dependencies (i.e. install its dependencies by running npm install)
+# Do this first since it take more time and doesn't tend to change (but after setting NODE_ENV so
+# that it will either install devDependencies or not depending on NODE_ENV)
+# https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
 WORKDIR /usr/src/app
 COPY ["package.json", "package-lock.json", "npm-shrinkwrap.json*", "./"]
 RUN npm install
@@ -15,9 +19,9 @@ COPY ["tsconfig.json", ".eslintrc.json", "./"]
 # Build the app
 RUN npm run build
 
-
-### TODO: alpine
+### Production Docker
 FROM node:10.13 as production
+
 
 # Set NODE_ENV to production
 ENV NODE_ENV production

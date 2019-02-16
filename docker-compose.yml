@@ -1,8 +1,27 @@
 version: '3.3'
-
 services:
-  freefit_back:
-    image: freefit_back
+  freefit-api:
+    image: freefit-api
     build: .
     ports:
       - 3000:3000
+    depends_on:
+      - freefit-db
+    environment:
+      - POSTGRES_HOST=freefit-db
+  freefit-db:
+    image: postgres:10.4
+    container_name: freefit-db
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    volumes:
+      - ./docker/scripts:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_MULTIPLE_DATABASES=freefit,freefit_test
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+networks:
+  default:
+    external:
+      name: freefit

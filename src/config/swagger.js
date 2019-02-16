@@ -6,13 +6,9 @@ module.exports = {
   exposeRoute: true,
   swagger: {
     info: {
-      title: 'First API',
+      title: 'Better Freefit',
       description: packageJson.description,
       version: packageJson.version
-    },
-    externalDocs: {
-      url: 'https://firstdag.com',
-      description: 'Read our guides'
     },
     host: `localhost:${config.get('port')}`,
     schemes: ['http'],
