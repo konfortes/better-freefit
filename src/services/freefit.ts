@@ -18,7 +18,7 @@ export class Freefit {
   public async getClubs(city: string): Promise<string[]> {
     const escaped = querystring.escape(city);
     const clubsPath = `#{config.get(freefit.citiesPath)}/?AREA=${escaped})}`;
-    const selector = ['#clubList', 'table', 'tr'];
+    const selector = ['#clubList', 'table', 'tr>td:nth-child(3)'];
 
     const scraped = await this.scraper.scrape(clubsPath, selector);
     return scraped;

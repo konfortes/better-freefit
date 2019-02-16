@@ -23,8 +23,13 @@ export class Scraper {
     const $ = cheerio.load(html);
 
     const result: Array<string> = [];
-
-    const items = $(...selector);
+    console.log('-------------------');
+    // console.log(html);
+    // TODO: this way works for cities, doesn not work for clubs
+    // const items = $(...selector);
+    const items = $(selector.join(' '));
+    console.log('items: ' + items);
+    console.log('-------------------');
     items.map((i, elm) => {
       result.push(elm.lastChild.data);
     });
