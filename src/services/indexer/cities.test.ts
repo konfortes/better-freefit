@@ -1,5 +1,5 @@
 import { CitiesIndexer } from './cities';
-import { ClubsDataStore } from './clubs-data-store';
+import { FreefitDataStore } from '../freefit-data-store';
 import { Freefit } from './../freefit';
 import * as sinon from 'sinon';
 
@@ -10,7 +10,7 @@ describe('index', () => {
 
       stubbedFreefit.getCities.resolves(['אילת', 'גבעתיים']);
 
-      const stubbedDataStore = sinon.createStubInstance(ClubsDataStore);
+      const stubbedDataStore = sinon.createStubInstance(FreefitDataStore);
       stubbedDataStore.saveClub.resolves();
 
       const citiesIndexer = new CitiesIndexer(stubbedFreefit, stubbedDataStore);

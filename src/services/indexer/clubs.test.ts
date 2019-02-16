@@ -1,4 +1,4 @@
-import { ClubsDataStore } from './clubs-data-store';
+import { FreefitDataStore } from '../freefit-data-store';
 import { Freefit } from './../freefit';
 import { ClubsIndexer } from './clubs';
 import * as sinon from 'sinon';
@@ -14,7 +14,7 @@ describe('index', () => {
         .withArgs('גבעתיים')
         .resolves(['הולמס פלייס גבעתיים']);
 
-      const stubbedDataStore = sinon.createStubInstance(ClubsDataStore);
+      const stubbedDataStore = sinon.createStubInstance(FreefitDataStore);
       stubbedDataStore.isClubExists.onFirstCall().resolves(true);
       stubbedDataStore.isClubExists.onSecondCall().resolves(false);
       stubbedDataStore.saveClub.resolves();

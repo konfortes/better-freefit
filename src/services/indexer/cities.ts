@@ -1,16 +1,16 @@
-import { IIndexerDataStore } from './clubs-data-store';
+import { IFreefitDataStore } from '../freefit-data-store';
 import { IFreefit } from './../freefit';
 
 export class CitiesIndexer {
   constructor(
     private freefit: IFreefit,
-    private dataStore: IIndexerDataStore
+    private dataStore: IFreefitDataStore
   ) {}
 
   public async index() {
     const cities = await this.freefit.getCities();
     for (const city of cities) {
-      this.dataStore.saveCity(city);
+      await this.dataStore.saveCity(city);
     }
   }
 }

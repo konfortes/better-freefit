@@ -16,7 +16,8 @@
     "test": "NODE_ENV=test jest --runInBand --verbose --color --coverage --detectOpenHandles",
     "test:watch": "NODE_ENV=test jest --runInBand --verbose --color --detectOpenHandles --watchAll --forceExit",
     "routes": "ts-node ./scripts/list-routes.ts",
-    "index:clubs": "",
+    "index:cities": "npm run build && node ./dist/services/indexer/scripts/run-cities-indexer.js",
+    "index:clubs": "npm run build && node ./dist/services/indexer/scripts/run-clubs-indexer.js",
     "clubs:location": ""
   },
   "repository": {
