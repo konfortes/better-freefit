@@ -15,15 +15,15 @@ describe('index', () => {
         .resolves(['הולמס פלייס גבעתיים']);
 
       const stubbedDataStore = sinon.createStubInstance(FreefitDataStore);
-      stubbedDataStore.isClubExists.onFirstCall().resolves(true);
-      stubbedDataStore.isClubExists.onSecondCall().resolves(false);
+      // stubbedDataStore.isClubExists.onFirstCall().resolves(true);
+      // stubbedDataStore.isClubExists.onSecondCall().resolves(false);
       stubbedDataStore.saveClub.resolves();
 
       const clubsIndexer = new ClubsIndexer(stubbedFreefit, stubbedDataStore);
       await clubsIndexer.index();
 
-      expect(stubbedDataStore.isClubExists.calledTwice).toBe(true);
-      expect(stubbedDataStore.saveClub.calledOnce).toBe(true);
+      // expect(stubbedDataStore.isClubExists.calledTwice).toBe(true);
+      expect(stubbedDataStore.saveClub.calledTwice).toBe(true);
     });
   });
 });
