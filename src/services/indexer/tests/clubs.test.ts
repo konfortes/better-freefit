@@ -1,6 +1,6 @@
-import { FreefitDataStore } from '../freefit-data-store';
-import { Freefit } from './../freefit';
-import { ClubsIndexer } from './clubs';
+import { FreefitDataStore } from '../../freefit-data-store';
+import { Freefit } from '../../freefit';
+import { ClubsIndexer } from '../clubs';
 import * as sinon from 'sinon';
 
 describe('index', () => {

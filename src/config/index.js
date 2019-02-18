@@ -36,6 +36,35 @@ const config = convict({
       default: '/Pages/ClubList'
     }
   },
+  geocoder: {
+    provider: {
+      doc: 'default geocoder provider',
+      format: ['google', 'here', 'mapquest'],
+      default: 'google'
+    },
+
+    httpAdapter: {
+      format: ['http', 'https', 'request'],
+      default: 'https'
+    },
+    apiKey: {
+      format: String,
+      default: 'YOUR_API_KEY',
+      env: 'GEOCODER_API_KEY'
+    }
+  },
+  locationDecorator: {
+    batchSize: {
+      doc: 'location decorator geocode batch size ',
+      format: Number,
+      default: 10
+    },
+    delay: {
+      doc: 'delay between batches',
+      format: Number,
+      default: 1000
+    }
+  },
   database: {
     type: 'postgres',
     host: {

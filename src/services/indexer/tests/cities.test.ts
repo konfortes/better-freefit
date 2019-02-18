@@ -1,6 +1,6 @@
-import { CitiesIndexer } from './cities';
-import { FreefitDataStore } from '../freefit-data-store';
-import { Freefit } from './../freefit';
+import { CitiesIndexer } from '../cities';
+import { FreefitDataStore } from '../../freefit-data-store';
+import { Freefit } from '../../freefit';
 import * as sinon from 'sinon';
 
 describe('index', () => {

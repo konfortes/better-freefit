@@ -1,11 +1,11 @@
-import { Club, Location } from './../database/entities/club';
+import { Club } from './../database/entities/club';
 import dbConnection from '../database';
 
 export interface IFreefitDataStore {
   // isClubExists: (club: string, city: string) => Promise<boolean>;
   getClubs: (query: any) => Promise<Club[]>;
   saveCity: (city: string) => Promise<any>;
-  saveClub: (club: string, city: string) => Promise<any>;
+  saveClub: (club: Club) => Promise<any>;
 }
 
 export class FreefitDataStore implements IFreefitDataStore {
@@ -16,20 +16,9 @@ export class FreefitDataStore implements IFreefitDataStore {
     return repo.find(query);
   }
 
-  public async saveClub(
-    clubName: string,
-    city: string,
-    status?: string,
-    location?: Location
-  ): Promise<any> {
+  public async saveClub(club: Club): Promise<any> {
     const connection = await dbConnection;
     const repo = connection.getRepository(Club);
-
-    const club = new Club();
-    club.name = clubName;
-    club.city = city;
-    club.status = status || 'pending';
-    club.location = location;
 
     await repo.save(club);
   }
