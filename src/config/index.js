@@ -63,6 +63,7 @@ const config = convict({
     logger: 'advanced-console',
     migrations: ['./dist/database/migrations/*.js'],
     migrationsRun: true,
+    entities: ['src/database/entities/*.ts'],
     cli: {
       migrationsDir: './dist/database/migrations'
     }

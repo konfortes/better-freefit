@@ -1,3 +1,6 @@
 {
-  "logLevel": "silent"
+  "logLevel": "silent",
+  "database": {
+    "database": "freefit_test"
+  }
 }

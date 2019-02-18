@@ -7,7 +7,7 @@ export interface IFreefit {
   getClubs: (city: string) => Promise<string[]>;
 }
 
-export class Freefit {
+export class Freefit implements IFreefit {
   constructor(private scraper: IScraper) {}
 
   public async getCities(): Promise<string[]> {

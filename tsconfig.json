@@ -12,9 +12,10 @@
     "baseUrl": "./src",
     "forceConsistentCasingInFileNames": true,
     "noUnusedLocals": true,
-    "strictPropertyInitialization": true,
     "strictNullChecks": true,
-    "allowJs": true
+    "allowJs": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false
   },
   "compileOnSave": true,
   "include": ["src/**/*.ts"],
