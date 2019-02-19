@@ -1,3 +1,5 @@
+import { Club } from '../../database/entities/club';
+import { Location } from '../../database/entities/club';
 import { IGeoCoder } from './../geocoder/index';
 import { FreefitDataStore } from './../freefit-data-store';
 import logger from '../../utils/logger';
@@ -14,30 +16,58 @@ export class LocationDecorator {
     private geocoder: IGeoCoder
   ) {}
   public async decorate() {
-    // TODO: run in batches
-    console.log(`decoration with options: ${this.options}`);
     const clubs = await this.dataStore.getClubs({ status: 'pending' });
 
-    // TODO: batchGeocode returns an array of arrays, wheres geocode returns just an array (multiple geocode results for the same location)
-    for (const club of clubs) {
-      try {
-        const clubLocation = await this.geocoder.geocode(club.name);
-        if (!(clubLocation && clubLocation[0])) {
-          logger.warn(`could not geocode ${club}`);
-          club.status = 'error';
-          continue;
-        }
-        const { formattedAddress, latitude, longitude } = clubLocation[0];
+    const batchesIterator = this.batches(clubs, this.options.batchSize);
 
-        club.formattedAddress = formattedAddress;
-        club.location = { latitude, longitude };
-        club.status = 'indexed';
-      } catch (error) {
-        logger.error({ error }, `error geocoding ${club.name}`);
-        club.status = 'error';
-      } finally {
-        await this.dataStore.saveClub(club);
+    for (const clubsBatch of batchesIterator) {
+      try {
+        await this.decorateClubs(clubsBatch);
+      } catch (ex) {
+        logger.error(ex);
       }
     }
+  }
+
+  private *batches(collection, batchSize: number) {
+    let index = 0;
+
+    while (index < collection.length) {
+      const actualBatch = Math.min(batchSize, collection.length - index);
+
+      yield collection.slice(index, index + actualBatch);
+      index += actualBatch;
+    }
+  }
+
+  private async decorateClubs(clubs: Club[]) {
+    const clubLocations = await this.geocoder.batchGeocode(
+      clubs.map(c => c.name)
+    );
+    let currentClub;
+    for (let i = 0; i < clubLocations.length; i++) {
+      // TODO: batchGeocode return result.error result.value. handle it
+      let location = clubLocations[i];
+      if (Array.isArray(location)) {
+        // multiple geocode can be resolved TODO: handle this in the geocoder
+        location = location[0];
+      }
+      currentClub = clubs[i];
+      await this.decorateClub(currentClub, location);
+    }
+    try {
+    } catch (error) {
+      currentClub.status = 'error';
+      await this.dataStore.saveClub(currentClub);
+    }
+  }
+
+  private async decorateClub(club: Club, location: Location) {
+    const { formattedAddress, latitude, longitude } = location;
+    club.formattedAddress = formattedAddress || '';
+    club.location = { latitude, longitude };
+    club.status = 'indexed';
+
+    await this.dataStore.saveClub(club);
   }
 }
