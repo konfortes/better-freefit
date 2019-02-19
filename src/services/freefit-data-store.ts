@@ -1,5 +1,5 @@
-import { Club } from './../database/entities/club';
-import dbConnection from '../database';
+import { getConnection } from '../database';
+import { Club } from '../database/entities/club';
 
 export interface IFreefitDataStore {
   getClubs: (query: any) => Promise<Club[]>;
@@ -9,32 +9,32 @@ export interface IFreefitDataStore {
 
 export class FreefitDataStore implements IFreefitDataStore {
   public async getClubs(query: any = {}): Promise<Club[]> {
-    const connection = await dbConnection;
+    const connection = await getConnection();
     const repo = connection.getRepository(Club);
 
     return repo.find(query);
   }
 
   public async saveClub(club: Club): Promise<any> {
-    const connection = await dbConnection;
+    const connection = await getConnection();
     const repo = connection.getRepository(Club);
 
     await repo.save(club);
   }
 
   public async createClubs(clubs: Club[]): Promise<any> {
-    const connection = await dbConnection;
+    const connection = await getConnection();
     const repo = connection.getRepository(Club);
 
     return repo.insert(clubs);
   }
 
   public async createCities(cities: string[]): Promise<any> {
-    const connection = await dbConnection;
+    const connection = await getConnection();
     return connection
       .createQueryBuilder()
       .insert()
-      .into('cities')
+      .into('cities', ['name'])
       .values(
         cities.map(c => {
           return { name: c };

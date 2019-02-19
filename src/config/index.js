@@ -57,7 +57,7 @@ const config = convict({
     batchSize: {
       doc: 'location decorator geocode batch size ',
       format: Number,
-      default: 10
+      default: 20
     },
     delay: {
       doc: 'delay between batches',
@@ -92,7 +92,7 @@ const config = convict({
     logger: 'advanced-console',
     migrations: ['./dist/database/migrations/*.js'],
     migrationsRun: true,
-    entities: ['src/database/entities/*.ts'],
+    entities: ['./dist/database/entities/*.js'],
     cli: {
       migrationsDir: './dist/database/migrations'
     }

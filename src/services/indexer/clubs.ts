@@ -1,6 +1,7 @@
 import { Club } from './../../database/entities/club';
 import { IFreefit } from './../freefit';
 import { IFreefitDataStore } from '../freefit-data-store';
+import logger from '../../utils/logger';
 
 export class ClubsIndexer {
   constructor(
@@ -9,9 +10,16 @@ export class ClubsIndexer {
   ) {}
   public async index() {
     const cities = await this.freefit.getCities();
+    // TODO: parallel
     for (const city of cities) {
-      const clubs = await this.freefit.getClubs(city);
-      await this.persistClubs(clubs, city);
+      try {
+        const clubs = await this.freefit.getClubs(city);
+        if (clubs.length) {
+          await this.persistClubs(clubs, city);
+        }
+      } catch (error) {
+        logger.error(`error indexing clubs for city ${city}`);
+      }
     }
   }
 

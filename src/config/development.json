@@ -1,5 +1,10 @@
 {
     "database": {
-        "logging": true
+        "logging": true,
+        "migrations": ["./src/database/migrations/*.ts"],
+        "entities": ["./src/database/entities/*.ts"],
+        "cli": {
+            "migrationsDir": "./dist/database/migrations"
+        }
     }
 }

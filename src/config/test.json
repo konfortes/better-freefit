@@ -1,6 +1,11 @@
 {
   "logLevel": "silent",
   "database": {
-    "database": "freefit_test"
+    "database": "freefit_test",
+    "migrations": ["./src/database/migrations/*.ts"],
+    "entities": ["./src/database/entities/*.ts"],
+    "cli": {
+      "migrationsDir": "./dist/database/migrations"
+    }
   }
 }
