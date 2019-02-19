@@ -6,24 +6,19 @@ import * as sinon from 'sinon';
 describe('index', () => {
   describe('ClubsIndexer', () => {
     it('should index correctly', async () => {
-      const stubbedFreefit = sinon.createStubInstance(Freefit);
+      const freefit = sinon.createStubInstance(Freefit);
 
-      stubbedFreefit.getCities.resolves(['אילת', 'גבעתיים']);
-      stubbedFreefit.getClubs.withArgs('אילת').resolves(['הולמס פלייס אילת']);
-      stubbedFreefit.getClubs
-        .withArgs('גבעתיים')
-        .resolves(['הולמס פלייס גבעתיים']);
+      freefit.getCities.resolves(['אילת', 'גבעתיים']);
+      freefit.getClubs.withArgs('אילת').resolves(['הולמס פלייס אילת']);
+      freefit.getClubs.withArgs('גבעתיים').resolves(['הולמס פלייס גבעתיים']);
 
-      const stubbedDataStore = sinon.createStubInstance(FreefitDataStore);
-      // stubbedDataStore.isClubExists.onFirstCall().resolves(true);
-      // stubbedDataStore.isClubExists.onSecondCall().resolves(false);
-      stubbedDataStore.saveClub.resolves();
+      const dataStore = sinon.createStubInstance(FreefitDataStore);
+      dataStore.saveClub.resolves();
 
-      const clubsIndexer = new ClubsIndexer(stubbedFreefit, stubbedDataStore);
+      const clubsIndexer = new ClubsIndexer(freefit, dataStore);
       await clubsIndexer.index();
 
-      // expect(stubbedDataStore.isClubExists.calledTwice).toBe(true);
-      expect(stubbedDataStore.saveClub.calledTwice).toBe(true);
+      expect(dataStore.createClubs.calledTwice).toBe(true);
     });
   });
 });

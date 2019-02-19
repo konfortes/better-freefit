@@ -7,10 +7,8 @@ export class CitiesIndexer {
     private dataStore: IFreefitDataStore
   ) {}
 
-  public async index() {
+  public async index(): Promise<any> {
     const cities = await this.freefit.getCities();
-    for (const city of cities) {
-      await this.dataStore.saveCity(city);
-    }
+    return this.dataStore.createCities(cities);
   }
 }

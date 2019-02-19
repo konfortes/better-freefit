@@ -8,7 +8,8 @@ describe('index', () => {
     it('should index correctly', async () => {
       const stubbedFreefit = sinon.createStubInstance(Freefit);
 
-      stubbedFreefit.getCities.resolves(['אילת', 'גבעתיים']);
+      const citiesStubbedResponse = ['אילת', 'גבעתיים'];
+      stubbedFreefit.getCities.resolves(citiesStubbedResponse);
 
       const stubbedDataStore = sinon.createStubInstance(FreefitDataStore);
       stubbedDataStore.saveClub.resolves();
@@ -16,7 +17,9 @@ describe('index', () => {
       const citiesIndexer = new CitiesIndexer(stubbedFreefit, stubbedDataStore);
       await citiesIndexer.index();
 
-      expect(stubbedDataStore.saveCity.calledTwice).toBe(true);
+      expect(
+        stubbedDataStore.createCities.calledOnceWith(citiesStubbedResponse)
+      ).toBe(true);
     });
   });
 });

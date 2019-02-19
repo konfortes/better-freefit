@@ -41,9 +41,11 @@ export class LocationDecorator {
   }
 
   private async decorateClubs(clubs: Club[]) {
+    // TODO: errors from here won't be caught and club status will stay pending
     const clubLocations = await this.geocoder.batchGeocode(
       clubs.map(c => c.name)
     );
+
     let currentClub;
     for (let i = 0; i < clubLocations.length; i++) {
       // TODO: batchGeocode return result.error result.value. handle it
@@ -54,11 +56,6 @@ export class LocationDecorator {
       }
       currentClub = clubs[i];
       await this.decorateClub(currentClub, location);
-    }
-    try {
-    } catch (error) {
-      currentClub.status = 'error';
-      await this.dataStore.saveClub(currentClub);
     }
   }
 

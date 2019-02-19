@@ -1,4 +1,4 @@
-version: '3.3'
+version: "3.3"
 services:
   freefit-api:
     image: freefit-api
@@ -21,7 +21,3 @@ services:
       - POSTGRES_MULTIPLE_DATABASES=freefit,freefit_test
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-networks:
-  default:
-    external:
-      name: freefit
