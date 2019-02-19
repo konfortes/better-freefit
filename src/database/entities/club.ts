@@ -6,10 +6,12 @@ import {
 } from 'typeorm';
 
 export interface Location {
-  lat: number;
-  lng: number;
+  latitude: string;
+  longitude: string;
+  formattedAddress?: string;
 }
 
+// TODO: does the Column atttribute can be empty?
 @Entity({ name: 'clubs' })
 export class Club {
   @PrimaryGeneratedColumn()
@@ -20,6 +22,9 @@ export class Club {
 
   @Column({ type: 'varchar' })
   public city: string;
+
+  @Column({ name: 'formatted_address', type: 'varchar' })
+  public formattedAddress: string;
 
   @Column({ type: 'json' })
   public location: Location | undefined;

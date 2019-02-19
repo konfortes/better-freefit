@@ -15,6 +15,7 @@ export class CreateClubs1550347561470 implements MigrationInterface {
           },
           { name: 'name', type: 'varchar', isUnique: false },
           { name: 'city', type: 'varchar', isUnique: false },
+          { name: 'formatted_address', type: 'varchar', isNullable: true },
           { name: 'location', type: 'json', isNullable: true },
           { name: 'status', type: 'varchar', default: "'pending'" },
           { name: 'created_at', type: 'timestamp', default: 'now()' }

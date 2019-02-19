@@ -14,7 +14,11 @@ describe('LocationDecorator', () => {
     freefitDataStore.getClubs.resolves([club]);
 
     const geocoder = sinon.createStubInstance(GeoCoder);
-    geocoder.geocode.resolves([{ latitude: 32.32, longitude: 33.33 }]);
+    geocoder.geocode.resolves({
+      latitude: '31.8998823',
+      longitude: '35.0166912',
+      formattedAddress: "Emek Dotan St 48, Modi'in-Maccabim-Re'ut, Israel"
+    });
 
     const locationDecorator = new LocationDecorator(
       { batchSize: 10, delay: 0 },

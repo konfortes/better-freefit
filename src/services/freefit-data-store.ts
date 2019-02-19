@@ -25,7 +25,6 @@ export class FreefitDataStore implements IFreefitDataStore {
 
   public async saveCity(city: string): Promise<any> {
     const connection = await dbConnection;
-    console.log('saving city: ' + city);
     await connection
       .createQueryBuilder()
       .insert()

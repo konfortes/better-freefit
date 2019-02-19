@@ -21,12 +21,12 @@ describe('FreefitDataStore', () => {
         await repo.delete({});
         const club1 = new Club();
         club1.city = 'אילת';
-        club1.location = { lat: 32.32, lng: 33.33 };
+        club1.location = { latitude: '32.32', longitude: '33.33' };
         club1.name = 'הולמס פלייס';
         club1.status = 'pending';
         const club2 = new Club();
         club2.city = 'גבעתיים';
-        club2.location = { lat: 34.32, lng: 35.33 };
+        club2.location = { latitude: '34.32', longitude: '35.33' };
         club2.name = 'גו אקטוב';
         club2.status = 'pending';
         const clubs = [club1, club2];
