@@ -21,8 +21,13 @@ export class LocationDecorator {
     for (const club of clubs) {
       try {
         const clubLocation = await this.geocoder.geocode(club.name);
-        console.log(`club ${club.name} location: ${clubLocation}`);
-        club.location = clubLocation;
+        if (!(clubLocation && clubLocation[0])) {
+          logger.info(`could not geocode ${club}`);
+          continue;
+        }
+        const { latitude: lat, longitude: lng } = clubLocation[0];
+        club.location = { lat, lng };
+
         this.dataStore.saveClub(club);
         club.location = clubLocation;
       } catch (error) {

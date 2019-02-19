@@ -14,7 +14,7 @@ describe('LocationDecorator', () => {
     freefitDataStore.getClubs.resolves([club]);
 
     const geocoder = sinon.createStubInstance(GeoCoder);
-    geocoder.geocode.resolves({ lat: 32.32, lng: 33.33 });
+    geocoder.geocode.resolves([{ latitude: 32.32, longitude: 33.33 }]);
 
     const locationDecorator = new LocationDecorator(
       { batchSize: 10, delay: 0 },
