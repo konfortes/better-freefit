@@ -17,6 +17,7 @@ export class LocationDecorator {
   ) {}
   public async decorate() {
     const clubs = await this.dataStore.getClubs({ status: 'pending' });
+    console.log('clubs.length: ' + clubs.length);
 
     const batchesIterator = this.batches(clubs, this.options.batchSize);
 

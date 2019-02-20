@@ -18,7 +18,8 @@
     "routes": "ts-node ./scripts/list-routes.ts",
     "index:cities": "npm run build && node ./dist/services/indexer/scripts/run-cities-indexer.js",
     "index:clubs": "npm run build && node ./dist/services/indexer/scripts/run-clubs-indexer.js",
-    "clubs:location": "",
+    "clubs:location": "npm run build && node ./dist/services/indexer/scripts/run-location-decorator.js",
+    "clubs:location:dev": "ts-node ./src/services/indexer/scripts/run-location-decorator.ts",
     "db:migration:generate": "typeorm migration:create -d src/database/migrations -n",
     "db:migrate": "npm run build && node ./dist/database/migrate"
   },
