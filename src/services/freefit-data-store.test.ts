@@ -1,6 +1,6 @@
 import { Club } from './../database/entities/club';
 import { FreefitDataStore } from './freefit-data-store';
-import { getConnection } from '../database';
+import { createConnection } from '../database';
 import { Connection, Repository } from 'typeorm';
 
 describe('FreefitDataStore', () => {
@@ -8,7 +8,7 @@ describe('FreefitDataStore', () => {
   let repo: Repository<Club>;
 
   beforeAll(async () => {
-    connection = await getConnection();
+    connection = await createConnection();
     repo = connection.getRepository(Club);
   });
   afterAll(async () => {

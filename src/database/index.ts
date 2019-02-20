@@ -1,22 +1,9 @@
+import { createConnection as createDbConnection, Connection } from 'typeorm';
 const config = require('../config');
-import {
-  createConnection,
-  getConnection as getDbConnection,
-  Connection
-} from 'typeorm';
 
-export const getConnection = async (
+export const createConnection = (
   name: string = 'default'
 ): Promise<Connection> => {
-  let connection: Connection;
-  try {
-    connection = await getDbConnection(name);
-    // TODO: not so elegant solution. figure out a way to solve it without using try catch
-  } catch (error) {
-    const connectionOptions = config.get('database');
-    connection = await createConnection(connectionOptions);
-    // await connection.connect();
-  }
-
-  return connection;
+  const connectionOptions = config.get('database');
+  return createDbConnection(connectionOptions);
 };

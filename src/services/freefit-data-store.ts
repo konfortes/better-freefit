@@ -1,4 +1,4 @@
-import { getConnection } from '../database';
+import { getConnection } from 'typeorm';
 import { Club } from '../database/entities/club';
 
 export interface IFreefitDataStore {
