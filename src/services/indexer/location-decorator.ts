@@ -46,16 +46,10 @@ export class LocationDecorator {
       clubs.map(c => c.name)
     );
 
-    let currentClub;
     for (let i = 0; i < clubLocations.length; i++) {
-      // TODO: batchGeocode return result.error result.value. handle it
-      let location = clubLocations[i];
-      if (Array.isArray(location)) {
-        // multiple geocode can be resolved TODO: handle this in the geocoder
-        location = location[0];
+      if (clubLocations[i]) {
+        await this.decorateClub(clubs[i], clubLocations[i]);
       }
-      currentClub = clubs[i];
-      await this.decorateClub(currentClub, location);
     }
   }
 

@@ -1,6 +1,7 @@
 const NodeGeocoder = require('node-geocoder');
 const config = require('../../config');
 import { Location } from 'database/entities/club';
+import logger from '../../utils/logger';
 
 export interface IGeoCoder {
   geocode: (location: string) => Promise<Location>;
@@ -22,8 +23,16 @@ export class GeoCoder implements IGeoCoder {
     return this.provider.geocode(location);
   }
 
-  public batchGeocode(locations: string[]): Promise<Location[]> {
-    // TODO: flatten the inner arrays
-    return this.provider.batchGeocode(locations);
+  public async batchGeocode(locations: string[]): Promise<Location[]> {
+    const results = await this.provider.batchGeocode(locations);
+
+    return results.map(result => {
+      if (result.error != null) {
+        logger.error({ error: result.error }, 'error geocoding');
+        return null;
+      }
+      // TODO: handle low confidence results
+      return result.value[0];
+    });
   }
 }
