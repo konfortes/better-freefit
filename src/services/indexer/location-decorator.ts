@@ -49,7 +49,18 @@ export class LocationDecorator {
 
     for (let i = 0; i < clubLocations.length; i++) {
       if (clubLocations[i]) {
-        await this.decorateClub(clubs[i], clubLocations[i]);
+        try {
+          await this.decorateClub(clubs[i], clubLocations[i]);
+        } catch (error) {
+          logger.error(
+            { error, club: clubs[i].name, location: clubLocations[i] },
+            'error decorating club'
+          );
+        }
+      } else {
+        logger.warn(`could not find location for ${clubs[i].name}`);
+        clubs[i].status = 'error';
+        await this.dataStore.saveClub(clubs[i]);
       }
     }
   }

@@ -57,7 +57,7 @@ const config = convict({
     batchSize: {
       doc: 'location decorator geocode batch size ',
       format: Number,
-      default: 20
+      default: 30
     },
     delay: {
       doc: 'delay between batches',
