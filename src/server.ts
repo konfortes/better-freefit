@@ -1,7 +1,7 @@
 import app from './app';
 import logger from './utils/logger';
 import config from './config';
-import { createConnection } from 'typeorm';
+import { createConnection } from './database';
 
 function handleError(error: Error) {
   logger.error(error);

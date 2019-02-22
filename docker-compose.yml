@@ -17,6 +17,7 @@ services:
       - 5432:5432
     volumes:
       - ./docker/scripts:/docker-entrypoint-initdb.d
+      - ./data:/var/lib/postgresql/data
     environment:
       - POSTGRES_MULTIPLE_DATABASES=freefit,freefit_test
       - POSTGRES_USER=postgres
