@@ -1,5 +1,4 @@
-const NodeGeocoder = require('node-geocoder');
-const config = require('../../config');
+import { IProviderFactory } from './provider-factory';
 import { Location } from 'database/entities/club';
 import logger from '../../utils/logger';
 
@@ -8,15 +7,10 @@ export interface IGeoCoder {
   batchGeocode: (locations: string[]) => Promise<Location[]>;
 }
 
-const getProvider = (): IGeoCoder => {
-  const options = config.get('geocoder');
-  return NodeGeocoder(options);
-};
-
 export class GeoCoder implements IGeoCoder {
   private provider: any;
-  constructor() {
-    this.provider = getProvider();
+  constructor(providerFactory: IProviderFactory) {
+    this.provider = providerFactory.getProvider();
   }
 
   public geocode(location: string): Promise<Location> {
@@ -27,7 +21,7 @@ export class GeoCoder implements IGeoCoder {
     const results = await this.provider.batchGeocode(locations);
 
     return results.map(result => {
-      if (result.error != null) {
+      if (result.error) {
         logger.error({ error: result.error }, 'error geocoding');
         return null;
       }

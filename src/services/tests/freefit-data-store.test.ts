@@ -1,6 +1,6 @@
-import { Club } from './../database/entities/club';
-import { FreefitDataStore } from './freefit-data-store';
-import { createConnection } from '../database';
+import { Club } from '../../database/entities/club';
+import { FreefitDataStore } from '../freefit-data-store';
+import { createConnection } from '../../database';
 import { Connection, Repository } from 'typeorm';
 
 describe('FreefitDataStore', () => {
