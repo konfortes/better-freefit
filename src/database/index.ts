@@ -8,7 +8,7 @@ interface RetryOptions {
 export const createConnection = async (
   name: string = 'default',
   // TODO: from config
-  retryOptions: RetryOptions = { retries: 3, wait: 2000 }
+  retryOptions: RetryOptions = { retries: 3, wait: 5000 }
 ): Promise<Connection> => {
   const connectionOptions = config.get('database');
 

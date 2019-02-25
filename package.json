@@ -41,6 +41,7 @@
   "homepage": "",
   "dependencies": {
     "axios": "^0.18.0",
+    "bluebird": "^3.5.3",
     "cheerio": "^1.0.0-rc.2",
     "convict": "^4.4.1",
     "cross-env": "^5.2.0",
@@ -51,6 +52,7 @@
     "node-geocoder": "^3.22.0",
     "pg": "^7.8.0",
     "pino": "^5.11.1",
+    "redis": "^2.8.0",
     "typeorm": "^0.2.13",
     "uuid": "^3.3.2"
   },
@@ -61,6 +63,7 @@
     "@types/node": "^10.12.18",
     "@types/node-geocoder": "^3.19.0",
     "@types/pino": "^5.8.4",
+    "@types/redis": "^2.8.10",
     "@types/sinon": "^7.0.6",
     "@types/uuid": "^3.4.4",
     "@typescript-eslint/eslint-plugin": "^1.1.0",
